@@ -80,11 +80,13 @@ export async function translateCoinAndMethod<T extends LedgerTransportCoinType, 
 ): Promise<LedgerTransportMethod<T, U>> {
   switch (coin) {
     case "Btc": {
+      // @ts-ignore
       const btc = new Btc({ transport });
       const methodInstance = btc[method as LedgerTransportMethodName<"Btc">].bind(btc);
       return methodInstance as LedgerTransportMethod<T, U>;
     }
     case "Eth": {
+      // @ts-ignore
       const eth = new Eth(transport);
       const methodInstance = eth[method as LedgerTransportMethodName<"Eth">].bind(eth);
       return methodInstance as LedgerTransportMethod<T, U>;
@@ -97,14 +99,17 @@ export async function translateCoinAndMethod<T extends LedgerTransportCoinType, 
           return out as LedgerTransportMethod<T, U>;
         }
         case "getAppAndVersion": {
+          // @ts-ignore
           const out: LedgerTransportMethod<null, "getAppAndVersion"> = getAppAndVersion.bind(undefined, transport);
           return out as LedgerTransportMethod<T, U>;
         }
         case "getDeviceInfo": {
+          // @ts-ignore
           const out: LedgerTransportMethod<null, "getDeviceInfo"> = getDeviceInfo.bind(undefined, transport);
           return out as LedgerTransportMethod<T, U>;
         }
         case "openApp": {
+          // @ts-ignore
           const out: LedgerTransportMethod<null, "openApp"> = openApp.bind(undefined, transport);
           return out as LedgerTransportMethod<T, U>;
         }
@@ -123,6 +128,7 @@ export class LedgerWebUsbTransport extends ledger.LedgerTransport {
   device: USBDevice;
 
   constructor(device: USBDevice, transport: TransportWebUSB, keyring: core.Keyring) {
+    // @ts-ignore
     super(transport, keyring);
     this.device = device;
   }
